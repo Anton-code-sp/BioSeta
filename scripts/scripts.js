@@ -121,10 +121,10 @@
                 extraSpan.innerHTML = '<i class="fas fa-hourglass-half"></i> <strong>URGENTE:</strong> Cambio inmediato requerido — Contacte al área logística ahora.';
                 extraSpan.style.color = "#b13e2a";
             } else if (currentStatus === "amarillo") {
-                extraSpan.innerHTML = '<i class="fas fa-chart-simple"></i> Monitoreo recomendado: saturación media, programar revisión en 15 días.';
+                extraSpan.innerHTML = '<i class="fas fa-chart-simple"></i> Monitoreo recomendado: saturación media.';
                 extraSpan.style.color = "#a57c1c";
             } else {
-                extraSpan.innerHTML = '<i class="fas fa-check-circle"></i> Operación óptima. Próximo mantenimiento programado en 2 meses.';
+                extraSpan.innerHTML = '<i class="fas fa-check-circle"></i> Operación óptima. Funcionamiento correcto.';
                 extraSpan.style.color = "#367a2f";
             }
         };
