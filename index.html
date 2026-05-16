@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BioSeta - Ficha Informativa</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <!-- Google Fonts + Font Awesome + simple CSS reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Header con logo y typografía inspirada en identidad visual -->
+    <div class="brand-header">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <img src="imgs/Bioseta_img.jpg" class="logo-img" width="60px" height="60px">
+            </div>
+            <div class="logo-text">
+                <h1>BioSeta</h1>
+                <div class="tagline">TRANSFORMAMOS LA INFRAESTRUCTURA <br>EN PULMONES BIOTECNOLÓGICOS</div>
+            </div>
+        </div>
+        <div class="slogan-mini">
+            <i class="fas fa-leaf"></i> micelio + innovación
+        </div>
+    </div>
+
+    <!-- Ficha principal: datos distribuidos con patrones UX -->
+    <div class="dashboard-grid">
+        <!-- Columna izquierda: Proyecto + estado semáforo dinámico -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-microscope"></i> 
+                <span>Ficha Técnica</span>
+            </div>
+            <div class="badge-id">
+                <i class="fas fa-qrcode"></i> PROYECTO BIOSETA • UNIDAD ID: <strong>CDMX-HUA-001</strong>
+            </div>
+            <!-- Sección dinámica del estado del semáforo -->
+            <div class="status-indicator" id="dynamicStatusBox">
+                <div class="current-status-badge">
+                    <div class="signal-light" id="signalLight" style="background-color: #2e9b2e;"></div>
+                    <span id="statusTitle" style="font-weight:800;">🟢 VERDE</span>
+                </div>
+                <div id="statusDescription" class="status-desc">✅ Filtro trabajando al 100%.</div>
+                <div class="action-buttons">
+                    <button class="btn-status btn-green" id="btnVerde"><i class="fas fa-check-circle"></i> Simular VERDE</button>
+                    <button class="btn-status btn-yellow" id="btnAmarillo"><i class="fas fa-exclamation-triangle"></i> Simular AMARILLO</button>
+                    <button class="btn-status btn-red" id="btnRojo"><i class="fas fa-bell"></i> Simular ROJO</button>
+                </div>
+                <p style="font-size:0.75rem; margin-top: 0.5rem; color:#4a6e3a;"><i class="fas fa-hand-pointer"></i> Prueba los estados para visualizar alertas</p>
+            </div>
+
+            <!-- Leyenda completa de los tres estados del semáforo (datos textuales) -->
+            <div class="legend-semaphore">
+                <div class="legend-item"><span style="font-size:1.3rem;">🟢</span> VERDE: Filtro trabajando al 100%.</div>
+                <div class="legend-item"><span style="font-size:1.3rem;">🟡</span> AMARILLO: Saturación media (En uso).</div>
+                <div class="legend-item"><span style="font-size:1.3rem;">🔴</span> ROJO: ¡Filtro lleno! Requiere cambio inmediato.</div>
+            </div>
+
+            <!-- AVISO LOGÍSTICO siempre visible -->
+            <div class="logistic-alert">
+                <i class="fas fa-truck-fast" style="margin-right: 10px; color:#b95f1a;"></i> 
+                <strong>📢 AVISO LOGÍSTICO:</strong> Si el semáforo marca ROJO antes de la fecha, repórtalo aquí para cambio urgente: 
+                <span class="phone-highlight copy-phone" id="phoneNumber" title="Haz clic para copiar">📞 776-123-45-67</span>
+                <div style="font-size:0.7rem; margin-top: 6px;"><i class="far fa-copy"></i> Copiar número al hacer clic</div>
+                <!-- mensaje extra dinámico para urgencias (red alert) -->
+                <div id="urgentDynamicMessage" class="urgent-extra">
+                    <i class="fas fa-exclamation-circle"></i> ⚠️ ¡ALERTA! Filtro saturado - Requiere cambio inmediato. Comunícate ahora.
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: SABÍAS QUÉ + info sustentable y frase final -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-seedling"></i>
+                <span>¿SABÍAS QUÉ?</span>
+            </div>
+            <p style="font-weight: 600; margin-bottom: 0.8rem;">🌱 Este módulo es 100% Sustentable:</p>
+            <ul class="sustainability-list">
+                <li><i class="fas fa-fan"></i> <strong>Filtro:</strong> Hecho de micelio de hongo (raíz natural).</li>
+                <li><i class="fas fa-recycle"></i> <strong>Carcasa:</strong> Fabricada con PET Reciclado.</li>
+                <li><i class="fas fa-earth-americas"></i> <strong>Final:</strong> Al terminar su vida útil, el filtro se convierte en composta o ladrillo ecológico.</li>
+            </ul>
+            <div class="highlight-quote">
+                <i class="fas fa-quote-left" style="margin-right: 6px;"></i> "Transformamos contaminación en vida."
+            </div>
+            <!-- otros datos de huella -->
+            <div style="margin-top: 1rem; background: #eef3e6; border-radius: 24px; padding: 0.7rem; text-align: center; font-size:0.85rem;">
+                <i class="fas fa-charging-station"></i> Ciclo cerrado · biofiltración activa · <strong>+60%</strong> reducción de partículas
+            </div>
+        </div>
+    </div>
+
+    <!-- segunda línea de datos complementarios / ficha adicional para reforzar info -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin-top: 0.5rem;">
+        <div style="background: #edf7e7; border-radius: 1.5rem; padding: 1rem 1.5rem; flex:1; text-align: center; font-size:0.9rem;">
+            <i class="fas fa-chart-line" style="color:#3f8e32;"></i> <strong>Beneficio ambiental:</strong> Cada módulo captura 12kg CO₂/año.
+        </div>
+        <div style="background: #edf7e7; border-radius: 1.5rem; padding: 1rem 1.5rem; flex:1; text-align: center; font-size:0.9rem;">
+            <i class="fas fa-clock"></i> <strong>Vida útil filtro:</strong> 10-12 meses según saturación.
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-copyright"></i> BioSeta — Infraestructura biotecnológica | Monitoreo Inteligente · Ciudad de México
+    </footer>
+</div>
+<script src="scripts/scripts.js"></script>
+</body>
+</html>
