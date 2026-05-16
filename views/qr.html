@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BioSeta · Código QR oficial</title>
+    <!-- Fuentes para mantener coherencia con identidad visual -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Librería para generar QR sin dependencias externas complicadas: QRCode.js (pure JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e4f0db 0%, #cbe5bd 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* Patrón orgánico sutíl (micelio) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#6f9e4d20 1.2px, transparent 1.2px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .logo-img{
+            width: 60px;
+            height: 60px;
+            border-radius: 32px 32px 32px 32px;
+            display: flex;
+            align-items: center;
+        }
+
+        .qr-card {
+            max-width: 560px;
+            width: 100%;
+            background: rgba(255, 255, 245, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 45px -12px rgba(30, 50, 10, 0.35);
+            padding: 2rem 1.8rem 2.2rem;
+            text-align: center;
+            transition: transform 0.2s ease;
+            border: 1px solid #cfecbe;
+            z-index: 2;
+            position: relative;
+        }
+
+        .qr-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 28px 38px -14px #2c5a1e40;
+        }
+
+        /* Logo y header */
+        .brand-icon {
+            display: inline-flex;
+            background: #1b4d1f;
+            width: 70px;
+            height: 70px;
+            border-radius: 35px 35px 35px 12px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: #d4f0bb;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #1f543d, #317d31);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #e6f3dd;
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            color: #2b6236;
+            letter-spacing: 0.3px;
+            margin-bottom: 1rem;
+        }
+
+        .url-container {
+            background: #eef3e8;
+            border-radius: 2rem;
+            padding: 0.6rem 1rem;
+            margin: 1rem 0 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid #bddbac;
+        }
+
+        .url-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1f4627;
+            word-break: break-all;
+            text-align: left;
+            font-family: monospace;
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            flex: 1;
+        }
+
+        .copy-btn {
+            background: #3c823c;
+            border: none;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn:hover {
+            background: #266e26;
+            transform: scale(0.97);
+        }
+
+        /* Contenedor del QR */
+        .qr-wrapper {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 1.8rem;
+            display: inline-block;
+            margin: 0.8rem 0 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 2px solid #eaffdd;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #qrcode img, #qrcode canvas {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+            height: auto;
+            border-radius: 1rem;
+        }
+        /* si la librería genera canvas, aseguramos tamaño máximo */
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .info-note {
+            font-size: 0.85rem;
+            background: #fafefa;
+            padding: 0.8rem;
+            border-radius: 1.5rem;
+            margin-top: 1rem;
+            color: #2b562b;
+            border-left: 5px solid #5fad3a;
+            text-align: left;
+        }
+
+        .download-area {
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        .btn-download {
+            background: #1e4424;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            color: #f2fae9;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+        }
+
+        .btn-download:hover {
+            background: #0d3613;
+            transform: translateY(-2px);
+        }
+
+        .footer-mini {
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            color: #437a37;
+            border-top: 1px solid #caddb8;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .qr-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .url-text {
+                font-size: 0.7rem;
+            }
+            .btn-download {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="qr-card">
+    <div class="brand-icon">
+        <img src="../imgs/Bioseta_img.jpg" class="logo-img" width="60px" height="60px">
+    </div>
+    <h1>BioSeta</h1>
+    <div class="tagline">INFRAESTRUCTURA · PULMONES BIOTECNOLÓGICOS</div>
+
+    <div class="url-container">
+        <span class="url-text" id="urlDisplay">https://anton-code-sp.github.io/BioSeta/</span>
+        <button class="copy-btn" id="copyUrlBtn"><i class="far fa-copy"></i> Copiar</button>
+    </div>
+
+    <!-- Aquí se inyectará el código QR -->
+    <div class="qr-wrapper">
+        <div id="qrcode"></div>
+    </div>
+
+    <div class="info-note">
+        <i class="fas fa-qrcode" style="margin-right: 8px; color:#457d35;"></i> 
+        Escanea este código QR con tu dispositivo móvil para acceder directamente al panel de monitoreo <strong>BioSeta</strong>.<br>
+        <span style="font-size:0.75rem; display:block; margin-top:6px;">🌱 Filtro de micelio · tecnología sustentable · transformamos contaminación en vida.</span>
+    </div>
+
+    <div class="download-area">
+        <button class="btn-download" id="downloadQRBtn"><i class="fas fa-download"></i> Descargar QR como imagen</button>
+    </div>
+    
+    <div class="footer-mini">
+        <i class="fas fa-leaf"></i> Proyecto CDMX-HUA-001 · Monitoreo en tiempo real
+    </div>
+</div>
+
+<script>
+    // URL fija para el QR proporcionada por el usuario
+    const TARGET_URL = "https://anton-code-sp.github.io/BioSeta/";
+    
+    // Aseguramos que se muestre correctamente en el span
+    const urlSpan = document.getElementById("urlDisplay");
+    if (urlSpan) urlSpan.innerText = TARGET_URL;
+
+    // Inicializar QR usando librería qrcodejs (soporta canvas / table)
+    // Esperamos que el DOM esté cargado
+    let qrElement = null;
+    function generateQRCode() {
+        // Limpiar contenido previo del contenedor qrcode
+        const qrContainer = document.getElementById("qrcode");
+        if (!qrContainer) return;
+        qrContainer.innerHTML = "";  // limpiar cualquier canvas/img anterior
+        
+        // Usar QRCodeJS (constructor recibe elemento contenedor y texto/opciones)
+        // La librería crea canvas o tabla, pero es confiable.
+        try {
+            new QRCode(qrContainer, {
+                text: TARGET_URL,
+                width: 220,
+                height: 220,
+                colorDark: "#1e4a2a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        } catch (e) {
+            // fallback: si librería falla (no debería), mostrar mensaje
+            qrContainer.innerHTML = `<div style="padding:1rem; background:#f9f2e0; border-radius:1rem;">⚠️ No se pudo generar QR. Intenta recargar.</div>`;
+            console.warn(e);
+        }
+    }
+    
+    // Llamar generación cuando todo esté listo
+    window.addEventListener('DOMContentLoaded', () => {
+        generateQRCode();
+        
+        // Pequeño margen: algunas versiones pueden tardar, pero funciona de inmediato.
+        // Si queremos verificar que la librería haya cargado completamente:
+        if (typeof QRCode === 'undefined') {
+            console.warn("QRCode library not loaded, using alternative?");
+            const altDiv = document.getElementById("qrcode");
+            if(altDiv) altDiv.innerHTML = "<p style='font-size:0.8rem;'>Cargando generador QR...</p>";
+            // reintentar luego de 300ms
+            setTimeout(() => {
+                if (typeof QRCode !== 'undefined') generateQRCode();
+                else altDiv.innerHTML = "<p>Error: recarga la página o verifica tu conexión.</p>";
+            }, 500);
+        }
+    });
+    
+    // Botón copiar URL
+    const copyBtn = document.getElementById("copyUrlBtn");
+    if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(TARGET_URL);
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 1800);
+            } catch (err) {
+                alert("No se pudo copiar manualmente, la URL es: " + TARGET_URL);
+            }
+        });
+    }
+    
+    // Función para descargar el QR (canvas o imagen). La librería qrcodejs dibuja un elemento canvas dentro de #qrcode
+    // Buscamos el canvas, extraemos su dataURL.
+    const downloadBtn = document.getElementById("downloadQRBtn");
+    if (downloadBtn) {
+        downloadBtn.addEventListener("click", () => {
+            const qrContainerDiv = document.getElementById("qrcode");
+            if (!qrContainerDiv) return;
+            // La librería genera un canvas o un elemento img (según versión, usualmente canvas)
+            let canvasElem = qrContainerDiv.querySelector("canvas");
+            if (!canvasElem) {
+                // También podría ser un img o tabla? pero qrcodejs coloca canvas por defecto si soporta.
+                // Si no encuentra canvas, buscamos posible imagen.
+                const imgElem = qrContainerDiv.querySelector("img");
+                if (imgElem && imgElem.src) {
+                    // descargar desde la imagen
+                    downloadImage(imgElem.src);
+                    return;
+                } else {
+                    alert("No se encontró el código QR para descargar. Intente recargar la página.");
+                    return;
+                }
+            }
+            const dataURL = canvasElem.toDataURL("image/png");
+            downloadImage(dataURL);
+        });
+    }
+    
+    function downloadImage(dataUrl) {
+        const link = document.createElement("a");
+        link.download = "BioSeta_qr.png";
+        link.href = dataUrl;
+        link.click();
+    }
+    
+    // adicional: si por algún motivo se necesita redibujar (por seguridad) no hace falta.
+    // también se puede añadir un tooltip
+    const qrWrap = document.querySelector(".qr-wrapper");
+    if(qrWrap){
+        qrWrap.setAttribute("title","Escanea para acceder al proyecto BioSeta");
+    }
+    
+    // Añadir un pequeño fallback si el código no se genera correctamente después de 1s (por si la librería carga tarde)
+    setTimeout(() => {
+        const qrCheck = document.getElementById("qrcode");
+        if (qrCheck && (qrCheck.children.length === 0 || qrCheck.innerHTML.trim() === "")) {
+            if (typeof QRCode !== 'undefined') {
+                generateQRCode();
+            } else {
+                qrCheck.innerHTML = `<div style="background:#fff0d0; border-radius:1rem; padding:1rem; font-size:0.8rem;">
+                <i class="fas fa-exclamation-triangle"></i> Reintentando generación QR. 
+                <button id="retryQr" style="margin-left:8px; background:#4c8b3c; border:none; padding:4px 12px; border-radius:20px; color:white;">Generar</button>
+                </div>`;
+                const retryBtn = document.getElementById("retryQr");
+                if (retryBtn) retryBtn.onclick = () => { generateQRCode(); };
+            }
+        }
+    }, 800);
+</script>
+</body>
+</html>
